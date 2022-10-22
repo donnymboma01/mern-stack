@@ -10,6 +10,8 @@ const corsOptions = require("./config/corsOptions");
 const connectDB = require("./config/dbConn");
 const mongoose = require("mongoose");
 const { logEvents } = require("./middleware/logger");
+const UserRoutes = require("./routes/userRoutes");
+const AuthRoutes = require("./routes/authRoutes");
 
 const PORT = process.env.PORT || 3500;
 
@@ -24,6 +26,9 @@ app.use(cors(corsOptions)); // très important pour le server.
 app.use(express.json());
 
 app.use(cookieParser());
+
+app.use('.auth',AuthRoutes);
+app.use("/users", UserRoutes);
 
 app.use("/", express.static(path.join(__dirname, "public")));
 
